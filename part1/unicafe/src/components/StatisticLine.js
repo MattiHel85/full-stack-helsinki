@@ -6,7 +6,6 @@ function StatisticLine(props) {
       <td>{props.name}</td>
       <td>{props.value}{props.name === 'positive' ? '%' : ''}</td>
     </tr>
-    // <p> {props.value}{props.name === 'positive' ? '%' : ''}</p>
   )
 }
 
