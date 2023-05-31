@@ -2,7 +2,11 @@ import React from 'react'
 
 function StatisticLine(props) {
   return (
-    <p>{props.name} {props.value}{props.name === 'positive' ? '%' : ''}</p>
+    <tr>
+      <td>{props.name}</td>
+      <td>{props.value}{props.name === 'positive' ? '%' : ''}</td>
+    </tr>
+    // <p> {props.value}{props.name === 'positive' ? '%' : ''}</p>
   )
 }
 
