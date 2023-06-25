@@ -11,7 +11,7 @@ function App() {
     parts: [
       {
         name: 'Fundamentals of React',
-        exercises: 1,
+        exercises: 10,
         id: 1
       },
       {
