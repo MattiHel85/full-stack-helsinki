@@ -4,10 +4,10 @@ const AddPerson = ({addPerson, newName, newNumber, handleNameChange, handleNumbe
     return (
         <form onSubmit={addPerson}>
             <div>
-              name: <input value={newName} onChange={handleNameChange}/>
+              Name: <input value={newName} onChange={handleNameChange}/>
             </div>
             <div>
-              number: <input value={newNumber} onChange={handleNumberChange}/>
+              Number: <input value={newNumber} onChange={handleNumberChange}/>
             </div>
             <div>
               <button type='submit'>
