@@ -40,7 +40,29 @@ const App = () => {
     const nameExists = persons.some((person) => person.name.toLowerCase() === newName.toLowerCase());
 
     if (nameExists) {
-      alert(`${newName} is already added to the phonebook`);
+      const result = window.confirm(`${newName} is already added to the phonebook. Would you like to replace the current saved number?`);
+
+      const existingPerson = persons.find((person) => person.name.toLowerCase() === newName.toLowerCase());
+      if (existingPerson) {
+        const updatedPerson = {
+          ...existingPerson,
+          number: newNumber
+        };
+
+        personService
+          .update(existingPerson.id, updatedPerson)
+          .then((res) => {
+            // Update the state with the updated person data
+            setPersons(persons.map((person) => person.id === existingPerson.id ? res.data : person));
+            setNewName('');
+            setNewNumber('');
+          })
+          .catch((error) => {
+            // Handle error if the update fails
+            console.log(error)
+          });
+      }
+
     } else {
       const newPerson = {
         name: newName,
@@ -64,11 +86,6 @@ const App = () => {
       setNewNumber('');
     }
   }
-
-  // const removePerson = () => {
-  //   personService
-  //     .remove(id)
-  // }
   
   const handleNameChange = (e) => {
     setNewName(e.target.value)
