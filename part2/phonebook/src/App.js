@@ -1,9 +1,10 @@
 import {useState, useEffect} from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import Search from './components/Search'
 import AddPerson from './components/AddPerson'
 import Person from './components/Person'
 import Header from './components/Header'
+import personService from './services/persons'
 
 const App = () => {
   
@@ -15,11 +16,20 @@ const App = () => {
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then(res => {
-    const persons = res.data
-    console.log(persons)
-    setPersons(persons)
-    })
+    personService
+      .getAll()
+      .then(res => {
+        setPersons(res.data)
+      })
+
+    // Pre personService code 
+
+    // axios.get('http://localhost:3001/persons')
+    // .then(res => {
+    // const persons = res.data
+    // console.log(persons)
+    // setPersons(persons)
+    // })
   }, [])
 
   
@@ -36,13 +46,29 @@ const App = () => {
         name: newName,
         number: newNumber
       };
-      axios.post('http://localhost:3001/persons', newPerson).then((res) => {
-        setPersons([...persons, res.data]); // Update the state with the new person from the server
-      });
+
+      personService
+        .create(newPerson)
+        .then((res) => {
+          setPersons([...persons, res.data])
+        })
+
+      // Pre personService code
+
+      // axios.post('http://localhost:3001/persons', newPerson).then((res) => {
+      //   setPersons([...persons, res.data]); // Update the state with the new person from the server
+      // });
+
+
       setNewName('');
       setNewNumber('');
     }
   }
+
+  // const removePerson = () => {
+  //   personService
+  //     .remove(id)
+  // }
   
   const handleNameChange = (e) => {
     setNewName(e.target.value)
@@ -60,6 +86,10 @@ const App = () => {
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
 
+  const handleDeletePerson = (id) => {
+    setPersons(persons.filter(person => person.id !== id));
+  };
+
   return (
     <>
       <Header header={'Phonebook'}/>
@@ -74,8 +104,8 @@ const App = () => {
       <Header header={'Numbers'}/>
       <div>
         {
-          filteredPersons ? filteredPersons.map(person => (<Person person={person} />)):
-          persons.map((person) => <Person person={person} />)
+          filteredPersons ? filteredPersons.map(person => (<Person key={person.id} person={person} onDelete={handleDeletePerson}/>)):
+          persons.map((person) => <Person key={person.id} person={person} onDelete={handleDeletePerson}/>)
         }
       </div>
     </>
