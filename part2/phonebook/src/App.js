@@ -28,15 +28,6 @@ const App = () => {
       .then(res => {
         setPersons(res.data)
       })
-
-    // Pre personService code 
-
-    // axios.get('http://localhost:3001/persons')
-    // .then(res => {
-    // const persons = res.data
-    // console.log(persons)
-    // setPersons(persons)
-    // })
   }, [])
 
   
@@ -80,7 +71,17 @@ const App = () => {
           })
           .catch((error) => {
             // Handle error if the update fails
-            console.log(error)
+            const redNotificationStyle = {
+              color: 'red',
+              background: '#F8F8FF',
+              fontSize: 20,
+              borderStyle: 'solid',
+              borderRadius: 15,
+              padding: 10,
+              marginBottom: 5
+            }
+          setNotificationStyle(redNotificationStyle)
+          setNotification(`${existingPerson.name} has already been removed from server`)
           });
       }
 
@@ -96,11 +97,6 @@ const App = () => {
           setPersons([...persons, res.data])
         })
 
-      // Pre personService code
-
-      // axios.post('http://localhost:3001/persons', newPerson).then((res) => {
-      //   setPersons([...persons, res.data]); // Update the state with the new person from the server
-      // });
         const greenNotificationStyle = {
           color: 'green',
           background: '#F8F8FF',
@@ -138,10 +134,6 @@ const App = () => {
 
   const handleDeletePerson = (id) => {
     setPersons(persons.filter(person => person.id !== id));
-    // setNotification(`${person.name} deleted`)
-    // setTimeout(() => {
-    //   setNotification(null)
-    // }, 3500)
   };
 
   
@@ -162,7 +154,6 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <Header header={'Numbers'}/>
-      <div>
         {
           filteredPersons ? filteredPersons.map( person => 
             (
@@ -183,7 +174,6 @@ const App = () => {
               />
             )
         }
-      </div>
     </>
   );
 }
