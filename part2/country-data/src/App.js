@@ -28,19 +28,44 @@ const App = () => {
       <h1>COUNTRIES!</h1>
       <Search filter={filter} onFilterChange={handleFilterChange}/>
       {
-        filteredCountries ? filteredCountries.map( country => 
+      filter
+        ? 
+        filteredCountries.length > 10
+        ? 
+        <p>Too many matches, please be more specific</p> 
+        :
+        filteredCountries.length === 1 
+        ?
+        filteredCountries.map((country) => (
           <div key={country.cca3}>
             <h4>{country.name.common}</h4>
-            <p>{country.population}</p>
-          </ div>
-          ) : 
-          countries.map((country) => (
-          <div key={country.cca3}>
-            <h4>{country.name.common}</h4>
-            <p>{country.population}</p>
-          </ div>
+            <p>Capital: {country.capital}</p>
+            <p>Area: {country.area}</p>
+            <p>Languages: </p>
+            <ul>
+              {Array.isArray(country.languages)
+                ? country.languages.map((language) => <li key={language}>{language}</li>)
+                : Object.values(country.languages).map((language) => <li key={language}>{language}</li>)
+              }
+            </ul>
+            <img src={country.flags.png} alt={`flag of ${country.name.common}`}/>
+          </div>
         ))
-      }
+        :
+        filteredCountries.map((country) => (
+          <div key={country.cca3}>
+            <p>Capital: {country.capital}</p>
+            <p>Area: {country.area}</p>
+          </div>
+        ))
+        : countries.map((country) => (
+          <div key={country.cca3}>
+            <h4>{country.name.common}</h4>
+            <p>{country.population}</p>
+          </div>
+        ))
+}
+
     </>
   );
 }
