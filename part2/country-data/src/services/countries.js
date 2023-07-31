@@ -1,12 +1,18 @@
 import axios from "axios";
-const apiUrl = 'https://studies.cs.helsinki.fi/restcountries/api/all'
+const apiUrlAll = 'https://studies.cs.helsinki.fi/restcountries/api/all'
+const apiUrlIndividual = 'https://studies.cs.helsinki.fi/restcountries/api/name/'
 
 const getAll = () => {
-    return axios.get(apiUrl)
+    return axios.get(apiUrlAll)
+}
+
+const getCountry = (name) => {
+    return axios.get(`${apiUrlIndividual}/${name}`)
 }
 
 const countryService = {
-    getAll: getAll
+    getAll: getAll,
+    getCountry: getCountry
 }
 
 export default countryService
