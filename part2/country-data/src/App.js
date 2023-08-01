@@ -62,6 +62,10 @@ const App = () => {
               }
             </ul>
             <img src={country.flags.png} alt={`flag of ${country.name.common}`}/>
+            <h4>Weather in {country.capital}</h4>
+            <p>temperature </p>
+            <p>icon</p>
+            <p>wind</p>
           </div>
         ))
         :
@@ -82,9 +86,12 @@ const App = () => {
                     }
                   </ul>
                   <img src={countryInfo.flags.png} alt={`flag of ${countryInfo.name.common}`}/>
+                  <h4>Weather in {countryInfo.capital}</h4>
+                  <p>temperature </p>
+                  <p>icon</p>
+                  <p>wind</p>
                 </> ) : null
             }
-
           </div>
         ))
         : countries.map((country) => (
@@ -103,6 +110,10 @@ const App = () => {
                     }
                   </ul>
                   <img src={countryInfo.flags.png} alt={`flag of ${countryInfo.name.common}`}/>
+                  <h4>Weather in {countryInfo.capital}</h4>
+                  <p>temperature </p>
+                  <p>icon</p>
+                  <p>wind</p>
                 </> ) : null
             }
           </div>
